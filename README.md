@@ -19,7 +19,7 @@ Boost engagement in your web3 community with challenges!
     - *If this is a challenge #30DaysOfCode, then each participant must define their own github username.*
 4. Before the deadline, each participant must verify his result.
     - *For the challenge #30DaysOfCode verification will be done with oracle, which checks user activity using GitHub API.*
-5. After the deadline, the community closes the challenge. Each participant with verified result will receive a part of the prize pool.
+5. After the deadline, the community finishes the challenge. Each participant with verified result will receive a part of the prize pool.
 
 ## 💡 Features for future versions 
 
