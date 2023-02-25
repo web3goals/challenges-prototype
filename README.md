@@ -1,4 +1,4 @@
-# 🎖️ Web3 Challenges
+# 🏔️ Web3 Challenges
 
 Boost engagement in your web3 community with challenges!
 
@@ -10,7 +10,7 @@ Boost engagement in your web3 community with challenges!
 
 ...
 
-## 👟 How it works
+## 🪄 How it works
 
 1. Community leader creates a challenge, sets a prize pool pool and deadline.
     - For example, a community of developers can create a challenge #30DaysOfCode.
@@ -21,7 +21,7 @@ Boost engagement in your web3 community with challenges!
     - For the challenge #30DaysOfCode verification will be done with oracle, which checks user activity using GitHub API.
 5. After the deadline, the community closes the challenge. Each participant with verified result will receive a part of the prize pool.
 
-## 🪄 Features for future versions 
+## 💡 Features for future versions 
 
 1. A participant must have a community token.
 2. Add more types of challenges.
