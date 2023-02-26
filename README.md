@@ -1,4 +1,4 @@
-# 🏔️ Web3 Challenges
+# 🏆 Web3 Challenges
 
 Boost engagement in your web3 community with challenges!
 
@@ -12,14 +12,14 @@ Web3 Challenges is an application that helps communities and DAOs increase the e
 
 ## 🪄 How it works
 
-1. Community leader creates a challenge, sets a prize pool pool and deadline.
+1. Community leader creates a challenge, sets a prize pool and deadline.
     - *For example, a community of developers can create a challenge #30DaysOfCode.*
 2. Community leader shares the link to the challenge with other community members.
 3. Members join the challenge. 
     - *If this is a challenge #30DaysOfCode, then each participant must define their own twitter username.*
 4. Before the deadline, each participant must verify his result.
     - *For the challenge #30DaysOfCode verification will be done with oracle, which checks user tweets using Twitter API.*
-5. After the deadline, the community finishes the challenge. Each participant with verified result will receive a part of the prize pool.
+5. After the deadline, the community finalizes the challenge. Each participant with verified result will receive a part of the prize pool.
 
 ## 💡 Features for future versions 
 
