@@ -4,9 +4,9 @@ import {
   Challenge,
   Challenge__factory,
   MockVerifier,
+  MockVerifier__factory,
   Profile,
   Profile__factory,
-  Verifier__factory,
 } from "../typechain-types";
 import { SECONDS_PER_DAY } from "./helpers/constants";
 import {
@@ -53,8 +53,8 @@ export let userThreeAddress: string;
 export let userFourAddress: string;
 
 export let profileContract: Profile;
-export let verifierContract: MockVerifier;
 export let challengeContract: Challenge;
+export let verifierContract: MockVerifier;
 
 export function makeSuiteCleanRoom(name: string, tests: () => void) {
   return describe(name, () => {
@@ -89,7 +89,7 @@ before(async function () {
   await profileContract.initialize();
 
   // Deploy verify contract
-  verifierContract = await new Verifier__factory(deployer).deploy();
+  verifierContract = await new MockVerifier__factory(deployer).deploy();
 
   // Deploy challenge contract
   challengeContract = await new Challenge__factory(deployer).deploy();

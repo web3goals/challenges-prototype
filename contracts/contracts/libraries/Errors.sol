@@ -12,4 +12,8 @@ library Errors {
     error VerifierNotFound();
     error ChallengeFinalized();
     error AlreadyParticipant();
+    error NotParticipant();
+
+    // Verifier errors
+    error NotChallengeContract();
 }

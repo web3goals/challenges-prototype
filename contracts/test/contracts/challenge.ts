@@ -63,9 +63,29 @@ makeSuiteCleanRoom("Challenge", function () {
     const participants = await challengeContract.getParticipants(
       startedChallengeId
     );
-    expect(participants.length).to.be.equal(3);
     // Check participants
+    expect(participants.length).to.be.equal(3);
     // Verify completion by user two, four
+    await expect(
+      challengeContract.connect(userTwo).verify(startedChallengeId)
+    ).to.be.not.reverted;
+    await expect(
+      challengeContract.connect(userFour).verify(startedChallengeId)
+    ).to.be.not.reverted;
+    // Check verification status
+    const isUserTwoCompletedChallenge = await challengeContract
+      .connect(userTwo)
+      .isChallengeCompleted(startedChallengeId);
+    const isUserThreeCompletedChallenge = await challengeContract
+      .connect(userThree)
+      .isChallengeCompleted(startedChallengeId);
+    const isUserFourCompletedChallenge = await challengeContract
+      .connect(userFour)
+      .isChallengeCompleted(startedChallengeId);
+    expect(isUserTwoCompletedChallenge).to.equal(true);
+    expect(isUserThreeCompletedChallenge).to.equal(false);
+    expect(isUserFourCompletedChallenge).to.equal(true);
+    // Complete challenge by user two, four
     // TODO:
     // Finalize challenge by user one
     // TODO:

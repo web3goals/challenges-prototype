@@ -6,6 +6,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
+import "./interfaces/IVerifier.sol";
 import "./libraries/Errors.sol";
 import "./libraries/DataTypes.sol";
 
@@ -117,7 +118,41 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
     }
 
     function verify(uint256 tokenId) public {
-        // TODO:
+        // Base Checks
+        if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
+        if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
+        // Check participant
+        DataTypes.ChallengeParticipant memory tokenParticipant;
+        for (uint i = 0; i < _participants[tokenId].length; i++) {
+            if (_participants[tokenId][i].accountAddress == msg.sender) {
+                tokenParticipant = _participants[tokenId][i];
+            }
+        }
+        if (tokenParticipant.accountAddress == address(0))
+            revert Errors.NotParticipant();
+        // Verify
+        IVerifier(_verifierAddress).verifyChallengeCompletion(
+            tokenId,
+            _params[tokenId].duration,
+            _params[tokenId].hashtag,
+            _params[tokenId].handle,
+            tokenParticipant.handle
+        );
+    }
+
+    // TODO:
+    function complete(uint256 tokenId) public {
+        // Base Checks
+        if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
+        if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
+        // Check participant
+        DataTypes.ChallengeParticipant memory tokenParticipant;
+        for (uint i = 0; i < _participants[tokenId].length; i++) {
+            if (_participants[tokenId][i].accountAddress == msg.sender) {
+                tokenParticipant = _participants[tokenId][i];
+            }
+        }
+        // Check verification status
     }
 
     /// *********************************
@@ -142,6 +177,24 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
         uint256 tokenId
     ) public view returns (DataTypes.ChallengeParticipant[] memory) {
         return _participants[tokenId];
+    }
+
+    function isChallengeCompleted(uint256 tokenId) public view returns (bool) {
+        // Base Checks
+        if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
+        if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
+        // Check participant
+        DataTypes.ChallengeParticipant memory tokenParticipant;
+        for (uint i = 0; i < _participants[tokenId].length; i++) {
+            if (_participants[tokenId][i].accountAddress == msg.sender) {
+                tokenParticipant = _participants[tokenId][i];
+            }
+        }
+        return
+            IVerifier(_verifierAddress).isChallengeCompleted(
+                tokenId,
+                tokenParticipant.handle
+            );
     }
 
     function tokenURI(
