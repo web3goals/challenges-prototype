@@ -13,6 +13,11 @@ library Errors {
     error ChallengeFinalized();
     error AlreadyParticipant();
     error NotParticipant();
+    error CompletionNotVerified();
+    error DeadlineNotPassed();
+    error NotCreator();
+    error SendingPrizeToCreatorFailed();
+    error SendingPrizeToWinnerFailed();
 
     // Verifier errors
     error NotChallengeContract();

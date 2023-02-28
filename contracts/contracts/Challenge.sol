@@ -22,6 +22,7 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
         address indexed participantAccountAddress,
         DataTypes.ChallengeParticipant participant
     );
+    event Finalized(uint256 indexed tokenId);
 
     address private _verifierAddress;
     Counters.Counter private _counter;
@@ -84,7 +85,43 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
     }
 
     function finalize(uint tokenId) public {
-        // TODO:
+        // Base checks
+        if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
+        if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
+        if (_params[tokenId].deadline > block.timestamp)
+            revert Errors.DeadlineNotPassed();
+        if (_params[tokenId].creator != msg.sender) revert Errors.NotCreator();
+        // Update token
+        _params[tokenId].isFinalized = true;
+        // Emit events
+        emit ParamsSet(tokenId, _params[tokenId]);
+        emit Finalized(tokenId);
+        // Define number of winners
+        uint winners = 0;
+        for (uint i = 0; i < _participants[tokenId].length; i++) {
+            if (_participants[tokenId][i].isChallengeCompleted) {
+                winners++;
+            }
+        }
+        // If there are no winners, then send prize to creator
+        if (winners == 0) {
+            (bool sent, ) = _params[tokenId].creator.call{
+                value: _params[tokenId].prize
+            }("");
+            if (!sent) revert Errors.SendingPrizeToCreatorFailed();
+        }
+        // If winners exist, then send prize to them
+        else {
+            for (uint i = 0; i < _participants[tokenId].length; i++) {
+                if (_participants[tokenId][i].isChallengeCompleted) {
+                    _participants[tokenId][i].isPrizeReceived = true;
+                    (bool sent, ) = _participants[tokenId][i]
+                        .accountAddress
+                        .call{value: _params[tokenId].prize / winners}("");
+                    if (!sent) revert Errors.SendingPrizeToWinnerFailed();
+                }
+            }
+        }
     }
 
     /// *********************************
@@ -122,37 +159,49 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
         if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
         if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
         // Check participant
-        DataTypes.ChallengeParticipant memory tokenParticipant;
+        uint256 participantIndex = 2 ^ (256 - 1);
         for (uint i = 0; i < _participants[tokenId].length; i++) {
             if (_participants[tokenId][i].accountAddress == msg.sender) {
-                tokenParticipant = _participants[tokenId][i];
+                participantIndex = i;
             }
         }
-        if (tokenParticipant.accountAddress == address(0))
-            revert Errors.NotParticipant();
+        if (participantIndex == 2 ^ (256 - 1)) revert Errors.NotParticipant();
         // Verify
         IVerifier(_verifierAddress).verifyChallengeCompletion(
             tokenId,
             _params[tokenId].duration,
             _params[tokenId].hashtag,
             _params[tokenId].handle,
-            tokenParticipant.handle
+            _participants[tokenId][participantIndex].handle
         );
     }
 
-    // TODO:
     function complete(uint256 tokenId) public {
         // Base Checks
         if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
         if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
         // Check participant
-        DataTypes.ChallengeParticipant memory tokenParticipant;
+        uint256 participantIndex = 2 ^ (256 - 1);
         for (uint i = 0; i < _participants[tokenId].length; i++) {
             if (_participants[tokenId][i].accountAddress == msg.sender) {
-                tokenParticipant = _participants[tokenId][i];
+                participantIndex = i;
             }
         }
+        if (participantIndex == 2 ^ (256 - 1)) revert Errors.NotParticipant();
         // Check verification status
+        if (
+            !IVerifier(_verifierAddress).isChallengeCompleted(
+                tokenId,
+                _participants[tokenId][participantIndex].handle
+            )
+        ) revert Errors.CompletionNotVerified();
+        // Update participant
+        _participants[tokenId][participantIndex].isChallengeCompleted = true;
+        emit ParticipantSet(
+            tokenId,
+            _participants[tokenId][participantIndex].accountAddress,
+            _participants[tokenId][participantIndex]
+        );
     }
 
     /// *********************************
@@ -184,16 +233,18 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
         if (!_exists(tokenId)) revert Errors.TokenDoesNotExist();
         if (_params[tokenId].isFinalized) revert Errors.ChallengeFinalized();
         // Check participant
-        DataTypes.ChallengeParticipant memory tokenParticipant;
+        uint256 participantIndex = 2 ^ (256 - 1);
         for (uint i = 0; i < _participants[tokenId].length; i++) {
             if (_participants[tokenId][i].accountAddress == msg.sender) {
-                tokenParticipant = _participants[tokenId][i];
+                participantIndex = i;
             }
         }
+        if (participantIndex == 2 ^ (256 - 1)) revert Errors.NotParticipant();
+        // Return result
         return
             IVerifier(_verifierAddress).isChallengeCompleted(
                 tokenId,
-                tokenParticipant.handle
+                _participants[tokenId][participantIndex].handle
             );
     }
 

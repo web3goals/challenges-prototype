@@ -1,16 +1,22 @@
+import { time } from "@nomicfoundation/hardhat-network-helpers";
+import { expect } from "chai";
+import { BigNumber } from "ethers";
+import { ethers } from "hardhat";
+import { SECONDS_PER_DAY } from "../helpers/constants";
 import {
   challengeContract,
   challengeParams,
   makeSuiteCleanRoom,
   userFour,
+  userFourAddress,
   userHandles,
   userOne,
   userOneAddress,
   userThree,
+  userThreeAddress,
   userTwo,
+  userTwoAddress,
 } from "../setup";
-import { expect } from "chai";
-import { ethers } from "hardhat";
 
 makeSuiteCleanRoom("Challenge", function () {
   it("User should be able to start and finalize a challenge, other users should be able to participate and verify completion", async function () {
@@ -41,7 +47,7 @@ makeSuiteCleanRoom("Challenge", function () {
       .connect(userOne)
       .getCurrentCounter();
     // Check challenge params
-    const params = await challengeContract.getParams(startedChallengeId);
+    let params = await challengeContract.getParams(startedChallengeId);
     expect(params.creator).to.equal(userOneAddress);
     expect(params.prize).to.equal(challengeParams.one.prize);
     // Participate by user two, three, four
@@ -60,7 +66,7 @@ makeSuiteCleanRoom("Challenge", function () {
         .connect(userFour)
         .participate(startedChallengeId, userHandles.four)
     ).to.be.not.reverted;
-    const participants = await challengeContract.getParticipants(
+    let participants = await challengeContract.getParticipants(
       startedChallengeId
     );
     // Check participants
@@ -86,8 +92,42 @@ makeSuiteCleanRoom("Challenge", function () {
     expect(isUserThreeCompletedChallenge).to.equal(false);
     expect(isUserFourCompletedChallenge).to.equal(true);
     // Complete challenge by user two, four
-    // TODO:
+    await expect(
+      challengeContract.connect(userTwo).complete(startedChallengeId)
+    ).to.be.not.reverted;
+    await expect(
+      challengeContract.connect(userThree).complete(startedChallengeId)
+    ).to.be.reverted;
+    await expect(
+      challengeContract.connect(userFour).complete(startedChallengeId)
+    ).to.be.not.reverted;
+    participants = await challengeContract.getParticipants(startedChallengeId);
+    for (const participant of participants) {
+      if (participant.accountAddress == userTwoAddress) {
+        expect(participant.isChallengeCompleted).to.equal(true);
+      }
+      if (participant.accountAddress == userThreeAddress) {
+        expect(participant.isChallengeCompleted).to.equal(false);
+      }
+      if (participant.accountAddress == userFourAddress) {
+        expect(participant.isChallengeCompleted).to.equal(true);
+      }
+    }
+    // Increase network time
+    await time.increase(3 * SECONDS_PER_DAY);
     // Finalize challenge by user one
-    // TODO:
+    await expect(
+      challengeContract.connect(userOne).finalize(startedChallengeId)
+    ).to.changeEtherBalances(
+      [userTwo, userFour, challengeContract],
+      [
+        challengeParams.one.prize.div(BigNumber.from(2)),
+        challengeParams.one.prize.div(BigNumber.from(2)),
+        challengeParams.one.prize.mul(ethers.constants.NegativeOne),
+      ]
+    );
+    // Check challenge params
+    params = await challengeContract.getParams(startedChallengeId);
+    expect(params.isFinalized).to.equal(true);
   });
 });
