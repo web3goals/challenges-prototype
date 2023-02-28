@@ -41,6 +41,16 @@ export function errorToString(error: any): string {
 }
 
 /**
+ * Convert number like "1" to big number "1".
+ */
+export function numberToBigNumber(number?: number): BigNumber {
+  if (!number) {
+    return ethers.constants.Zero;
+  }
+  return BigNumber.from(number);
+}
+
+/**
  * Convert number like "0.01" to big number "10000000000000000".
  */
 export function numberToBigNumberEthers(number?: number): BigNumber {
