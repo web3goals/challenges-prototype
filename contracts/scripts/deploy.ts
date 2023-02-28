@@ -67,6 +67,11 @@ async function main() {
         `npx hardhat verify --network ${chain} ${contract.address} ${chainContracts.challenge}`
     );
     chainContracts.verifier = contract.address;
+    console.log("⚡ Send contract address to challenge");
+    await Challenge__factory.connect(
+      chainContracts.challenge,
+      deployerWallet
+    ).setVerifierAddress(contract.address);
   }
 }
 
