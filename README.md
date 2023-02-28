@@ -4,7 +4,7 @@ Boost engagement in your web3 community with challenges!
 
 ## 🔗 Links
 
-...
+- [Application](https://web3challenges-app.vercel.app/)
 
 ## ⚡ About
 
