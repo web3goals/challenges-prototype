@@ -15,13 +15,26 @@ import { CookiesProvider } from "react-cookie";
 import { theme } from "theme";
 import { getSupportedChains } from "utils/chains";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { fantomTestnet } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
 import "../styles/globals.css";
 
 const { chains, provider } = configureChains(
   [...getSupportedChains()],
   [
+    // Custom rpc providers
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if (chain === fantomTestnet) {
+          return {
+            http: "https://rpc.ankr.com/fantom_testnet",
+          };
+        }
+        return null;
+      },
+    }),
     // Alchemy provider
     ...(process.env.NEXT_PUBLIC_ALCHEMY_ID
       ? [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID })]
