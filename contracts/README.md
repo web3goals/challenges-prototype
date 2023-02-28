@@ -1,4 +1,4 @@
-# Web3 Challenge Contracts
+# Web3 Challenges Contracts
 
 ## Commands
 
