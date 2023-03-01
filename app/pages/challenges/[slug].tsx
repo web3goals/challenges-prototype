@@ -81,6 +81,10 @@ export default function Challenge() {
               id={challengeId}
               creator={challengeParams.creator}
               isFinalized={challengeParams.isFinalized}
+              onSuccess={() => {
+                refetchChallengeParams();
+                refetchChallengeParticipants();
+              }}
               sx={{ mt: 4 }}
             />
             <ThickDivider sx={{ mt: 6 }} />
