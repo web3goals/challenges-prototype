@@ -140,6 +140,8 @@ function ChallengeParticipantCard(props: {
   isPrizeReceived: boolean;
   sx?: SxProps;
 }) {
+  const { address } = useAccount();
+
   return (
     <Box
       sx={{
@@ -158,6 +160,7 @@ function ChallengeParticipantCard(props: {
         <MuiLink href={`/accounts/${props.accountAddress}`} fontWeight={700}>
           {addressToShortAddress(props.accountAddress)}
         </MuiLink>
+        {address === props.accountAddress ? " (you)" : ""}
       </Typography>
       {/* Handle */}
       <Typography gutterBottom>

@@ -17,9 +17,10 @@ export default function StartChallenge() {
         <ChallengeStartedMessage id={startedChallengeId} />
       ) : (
         <ChallengeStartForm
-          onSuccess={(startedChallengeId) =>
-            setStartedChallengeId(startedChallengeId)
-          }
+          onSuccess={(startedChallengeId) => {
+            setStartedChallengeId(startedChallengeId);
+            window.scrollTo(0, 0);
+          }}
         />
       )}
     </Layout>

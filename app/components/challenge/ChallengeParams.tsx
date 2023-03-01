@@ -50,7 +50,7 @@ export default function ChallengeParams(props: {
       <WidgetBox bgcolor={palette.blue} mb={2}>
         <WidgetTitle>By</WidgetTitle>
         <WidgetLink href={`/accounts/${props.creator.toString()}`}>
-          🔗 {addressToShortAddress(props.creator.toString())}
+          👤 {addressToShortAddress(props.creator.toString())}
         </WidgetLink>
       </WidgetBox>
       <WidgetSeparatorText mb={2}>with</WidgetSeparatorText>
