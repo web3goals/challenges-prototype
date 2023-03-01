@@ -10,4 +10,7 @@ type Challenge @entity {
   prize: BigInt!
   deadline: BigInt!
   isFinalized: Boolean!
+  # Participants
+  participantAddresses: [String!]!
+  participantsNumber: Int!
 }

@@ -16,6 +16,7 @@ dataSources:
       entities:
         - Transfer
         - ParamsSet
+        - ParticipantSet
       abis:
         - name: Challenge
           file: ./abis/Challenge.json
@@ -24,4 +25,6 @@ dataSources:
           handler: handleTransfer
         - event: ParamsSet(indexed uint256,(uint256,address,uint256,string,string,string,uint256,uint256,bool))
           handler: handleParamsSet
+        - event: ParticipantSet(indexed uint256,indexed address,(uint256,address,string,bool,bool))
+          handler: handleParticipantSet
       file: ./src/handlers/challengeHandlers.ts

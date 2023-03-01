@@ -1,6 +1,13 @@
-import { ParamsSet, Transfer } from "../../generated/Challenge/Challenge";
+import {
+  ParamsSet,
+  ParticipantSet,
+  Transfer,
+} from "../../generated/Challenge/Challenge";
 import { Challenge } from "../../generated/schema";
-import { loadOrCreateChallenge } from "../utils";
+import {
+  getChallengeWithAddedParticipant,
+  loadOrCreateChallenge,
+} from "../utils";
 
 export function handleTransfer(event: Transfer): void {
   let challenge = loadOrCreateChallenge(event.params.tokenId.toString());
@@ -23,5 +30,19 @@ export function handleParamsSet(event: ParamsSet): void {
   challenge.prize = event.params.params.prize;
   challenge.deadline = event.params.params.deadline;
   challenge.isFinalized = event.params.params.isFinalized;
+  challenge.save();
+}
+
+export function handleParticipantSet(event: ParticipantSet): void {
+  // Load challenge
+  let challenge = Challenge.load(event.params.tokenId.toString());
+  if (!challenge) {
+    return;
+  }
+  // Add participant to challenge
+  challenge = getChallengeWithAddedParticipant(
+    challenge,
+    event.params.participant.accountAddress.toHexString()
+  );
   challenge.save();
 }

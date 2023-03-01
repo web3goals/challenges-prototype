@@ -122,4 +122,22 @@ export class Challenge extends Entity {
   set isFinalized(value: boolean) {
     this.set("isFinalized", Value.fromBoolean(value));
   }
+
+  get participantAddresses(): Array<string> {
+    let value = this.get("participantAddresses");
+    return value!.toStringArray();
+  }
+
+  set participantAddresses(value: Array<string>) {
+    this.set("participantAddresses", Value.fromStringArray(value));
+  }
+
+  get participantsNumber(): i32 {
+    let value = this.get("participantsNumber");
+    return value!.toI32();
+  }
+
+  set participantsNumber(value: i32) {
+    this.set("participantsNumber", Value.fromI32(value));
+  }
 }

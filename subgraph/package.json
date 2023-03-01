@@ -1,6 +1,7 @@
 {
   "name": "web3challenges-subgraph",
   "version": "0.1",
+  "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
