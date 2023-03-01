@@ -1,0 +1,16 @@
+{
+  "name": "web3challenges-subgraph",
+  "version": "0.1",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ kiv1n/web3-challenges",
+    "create-local": "graph create --node http://localhost:8020/ kiv1n/web3-challenges",
+    "remove-local": "graph remove --node http://localhost:8020/ kiv1n/web3-challenges",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kiv1n/web3-challenges"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.30.2",
+    "@graphprotocol/graph-ts": "0.27.0"
+  }
+}

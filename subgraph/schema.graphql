@@ -1,0 +1,13 @@
+type Challenge @entity {
+  id: ID! # token id
+  # Params
+  createdTimestamp: BigInt!
+  creator: String!
+  duration: BigInt!
+  hashtag: String!
+  handle: String!
+  description: String!
+  prize: BigInt!
+  deadline: BigInt!
+  isFinalized: Boolean!
+}

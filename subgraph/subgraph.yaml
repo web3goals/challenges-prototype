@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Challenge
+    network: fantom-testnet
+    source:
+      address: "0xD9fEAbe16BAb684B5537eb6cbB43C8A4e6a90F47"
+      abi: Challenge
+      startBlock: 14230520
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+        - ParamsSet
+      abis:
+        - name: Challenge
+          file: ./abis/Challenge.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: ParamsSet(indexed uint256,(uint256,address,uint256,string,string,string,uint256,uint256,bool))
+          handler: handleParamsSet
+      file: ./src/handlers/challengeHandlers.ts

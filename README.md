@@ -5,6 +5,7 @@ Boost engagement in your web3 community with challenges!
 ## 🔗 Links
 
 - [Application](https://web3challenges-app.vercel.app/)
+- [Subgraph](https://thegraph.com/hosted-service/subgraph/kiv1n/web3-challenges)
 
 ## ⚡ About
 
