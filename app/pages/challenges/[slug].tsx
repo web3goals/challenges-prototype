@@ -1,7 +1,12 @@
 import ChallengeActions from "components/challenge/ChallengeActions";
 import ChallengeParams from "components/challenge/ChallengeParams";
+import ChallengeParticipants from "components/challenge/ChallengeParticipants";
 import Layout from "components/layout";
-import { CentralizedBox, FullWidthSkeleton } from "components/styled";
+import {
+  CentralizedBox,
+  FullWidthSkeleton,
+  ThickDivider,
+} from "components/styled";
 import { challengeContractAbi } from "contracts/abi/challengeContract";
 import { BigNumber } from "ethers";
 import { useRouter } from "next/router";
@@ -74,8 +79,21 @@ export default function Challenge() {
             />
             <ChallengeActions
               id={challengeId}
+              creator={challengeParams.creator}
               isFinalized={challengeParams.isFinalized}
               sx={{ mt: 4 }}
+            />
+            <ThickDivider sx={{ mt: 6 }} />
+            <ChallengeParticipants
+              id={challengeId}
+              creator={challengeParams.creator}
+              isFinalized={challengeParams.isFinalized}
+              participants={challengeParticipants}
+              onUpdate={() => {
+                refetchChallengeParams();
+                refetchChallengeParticipants();
+              }}
+              sx={{ mt: 6 }}
             />
           </>
         ) : (

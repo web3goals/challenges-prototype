@@ -2,8 +2,8 @@ import { SxProps } from "@mui/material";
 import { Stack } from "@mui/system";
 import { XlLoadingButton } from "components/styled";
 import { DialogContext } from "context/dialog";
-import { BigNumber } from "ethers";
 import { useContext } from "react";
+import { useAccount } from "wagmi";
 import ChallengeShareDialog from "./ChallengeShareDialog";
 
 /**
@@ -11,6 +11,7 @@ import ChallengeShareDialog from "./ChallengeShareDialog";
  */
 export default function ChallengeActions(props: {
   id: string;
+  creator: string;
   isFinalized: boolean;
   sx?: SxProps;
 }) {
@@ -21,20 +22,27 @@ export default function ChallengeActions(props: {
       justifyContent="center"
       sx={{ ...props.sx }}
     >
-      {!props.isFinalized && <ChallengeFinalizeCloseButton id={props.id} />}
+      {!props.isFinalized && (
+        <ChallengeFinalizeCloseButton id={props.id} creator={props.creator} />
+      )}
       <ChallengeShareButton id={props.id} />
     </Stack>
   );
 }
 
 // TODO: Implement
-// TODO: Display only for creator
-function ChallengeFinalizeCloseButton(props: { id: string }) {
-  return (
-    <XlLoadingButton variant="contained" onClick={() => {}}>
-      Finalize
-    </XlLoadingButton>
-  );
+function ChallengeFinalizeCloseButton(props: { id: string; creator: string }) {
+  const { address } = useAccount();
+
+  if (address === props.creator) {
+    return (
+      <XlLoadingButton variant="contained" onClick={() => {}}>
+        Finalize
+      </XlLoadingButton>
+    );
+  }
+
+  return <></>;
 }
 
 function ChallengeShareButton(props: { id: string }) {
