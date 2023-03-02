@@ -180,6 +180,14 @@ export class ParamsSetParamsStruct extends ethereum.Tuple {
   get isFinalized(): boolean {
     return this[8].toBoolean();
   }
+
+  get finalizedTimestamp(): BigInt {
+    return this[9].toBigInt();
+  }
+
+  get winnersNumber(): BigInt {
+    return this[10].toBigInt();
+  }
 }
 
 export class ParticipantSet extends ethereum.Event {
@@ -294,6 +302,14 @@ export class Challenge__getParamsResultValue0Struct extends ethereum.Tuple {
   get isFinalized(): boolean {
     return this[8].toBoolean();
   }
+
+  get finalizedTimestamp(): BigInt {
+    return this[9].toBigInt();
+  }
+
+  get winnersNumber(): BigInt {
+    return this[10].toBigInt();
+  }
 }
 
 export class Challenge__getParticipantsResultValue0Struct extends ethereum.Tuple {
@@ -389,7 +405,7 @@ export class Challenge extends ethereum.SmartContract {
   getParams(tokenId: BigInt): Challenge__getParamsResultValue0Struct {
     let result = super.call(
       "getParams",
-      "getParams(uint256):((uint256,address,uint256,string,string,string,uint256,uint256,bool))",
+      "getParams(uint256):((uint256,address,uint256,string,string,string,uint256,uint256,bool,uint256,uint256))",
       [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
 
@@ -403,7 +419,7 @@ export class Challenge extends ethereum.SmartContract {
   ): ethereum.CallResult<Challenge__getParamsResultValue0Struct> {
     let result = super.tryCall(
       "getParams",
-      "getParams(uint256):((uint256,address,uint256,string,string,string,uint256,uint256,bool))",
+      "getParams(uint256):((uint256,address,uint256,string,string,string,uint256,uint256,bool,uint256,uint256))",
       [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
     if (result.reverted) {

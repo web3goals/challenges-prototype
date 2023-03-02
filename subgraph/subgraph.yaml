@@ -6,9 +6,9 @@ dataSources:
     name: Challenge
     network: fantom-testnet
     source:
-      address: "0xD9fEAbe16BAb684B5537eb6cbB43C8A4e6a90F47"
+      address: "0x280b48e6e8786FccC337CE5e7bfEeE8c186e0F66"
       abi: Challenge
-      startBlock: 14230520
+      startBlock: 14270807
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -23,7 +23,7 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: ParamsSet(indexed uint256,(uint256,address,uint256,string,string,string,uint256,uint256,bool))
+        - event: ParamsSet(indexed uint256,(uint256,address,uint256,string,string,string,uint256,uint256,bool,uint256,uint256))
           handler: handleParamsSet
         - event: ParticipantSet(indexed uint256,indexed address,(uint256,address,string,bool,bool))
           handler: handleParticipantSet

@@ -214,6 +214,16 @@
             "internalType": "bool",
             "name": "isFinalized",
             "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "finalizedTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "winnersNumber",
+            "type": "uint256"
           }
         ],
         "indexed": false,
@@ -453,6 +463,16 @@
             "internalType": "bool",
             "name": "isFinalized",
             "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "finalizedTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "winnersNumber",
+            "type": "uint256"
           }
         ],
         "internalType": "struct DataTypes.ChallengeParams",
