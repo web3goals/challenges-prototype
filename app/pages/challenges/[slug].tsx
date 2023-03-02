@@ -1,6 +1,7 @@
 import ChallengeActions from "components/challenge/ChallengeActions";
 import ChallengeParams from "components/challenge/ChallengeParams";
 import ChallengeParticipants from "components/challenge/ChallengeParticipants";
+import ChallengeResult from "components/challenge/ChallengeResult";
 import Layout from "components/layout";
 import {
   CentralizedBox,
@@ -76,6 +77,12 @@ export default function Challenge() {
               prize={challengeParams.prize}
               deadline={challengeParams.deadline}
               isFinalized={challengeParams.isFinalized}
+            />
+            <ChallengeResult
+              isFinalized={challengeParams.isFinalized}
+              finalizedTimestamp={challengeParams.finalizedTimestamp}
+              winnersNumber={challengeParams.winnersNumber}
+              sx={{ mt: 6 }}
             />
             <ChallengeActions
               id={challengeId}

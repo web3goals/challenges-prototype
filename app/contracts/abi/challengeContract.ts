@@ -215,6 +215,16 @@ export const challengeContractAbi = [
             name: "isFinalized",
             type: "bool",
           },
+          {
+            internalType: "uint256",
+            name: "finalizedTimestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "winnersNumber",
+            type: "uint256",
+          },
         ],
         indexed: false,
         internalType: "struct DataTypes.ChallengeParams",
@@ -453,6 +463,16 @@ export const challengeContractAbi = [
             internalType: "bool",
             name: "isFinalized",
             type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "finalizedTimestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "winnersNumber",
+            type: "uint256",
           },
         ],
         internalType: "struct DataTypes.ChallengeParams",

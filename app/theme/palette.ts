@@ -6,6 +6,7 @@ declare module "@mui/material/styles" {
     blue: string;
     red: string;
     orange: string;
+    yellow: string;
     purpleLight: string;
     purpleDark: string;
     greyDark: string;
@@ -27,6 +28,7 @@ export const palette: PaletteOptions = {
   blue: "#2B6EFD",
   red: "#FF4400",
   orange: "#E97E27",
+  yellow: "#FFC833",
   purpleLight: "#9747FF",
   purpleDark: "#410C92",
   greyDark: "#333333",
