@@ -141,6 +141,7 @@ function ChallengeCard(props: { challenge: ChallengeEntity; sx?: SxProps }) {
           {getChainNativeCurrencySymbol(chain)}
         </Typography>
         <Typography variant="body2">
+          📅{" "}
           {bigNumberTimestampToLocaleDateString(
             BigNumber.from(props.challenge.deadline)
           )}
