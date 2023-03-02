@@ -4,7 +4,7 @@ import {
   Profile__factory,
   Verifier__factory,
 } from "../typechain-types";
-import { deployedContracts } from "./helpers/constants";
+import { contractsData, deployedContracts } from "./helpers/constants";
 
 async function main() {
   // Define chain
@@ -23,6 +23,7 @@ async function main() {
 
   // Define chain data
   const chainContracts = deployedContracts[chain];
+  const chainContractData = contractsData[chain];
 
   // Deploy profile contract
   if (!chainContracts.profile) {
@@ -58,13 +59,16 @@ async function main() {
   if (!chainContracts.verifier) {
     console.log(`\n👟 Start deploy verifier contract`);
     const contract = await new Verifier__factory(deployerWallet).deploy(
-      chainContracts.challenge
+      chainContracts.challenge,
+      chainContractData.verifierContract.chainlinkTokenAddress,
+      chainContractData.verifierContract.chainlinkOracleAddress,
+      chainContractData.verifierContract.chainlinkJobId
     );
     await contract.deployed();
     console.log("✅ Contract deployed to " + contract.address);
     console.log(
       "👉 Command for vefifying: " +
-        `npx hardhat verify --network ${chain} ${contract.address} ${chainContracts.challenge}`
+        `npx hardhat verify --network ${chain} ${contract.address} ${chainContracts.challenge} ${chainContractData.verifierContract.chainlinkTokenAddress} ${chainContractData.verifierContract.chainlinkOracleAddress} ${chainContractData.verifierContract.chainlinkJobId}`
     );
     chainContracts.verifier = contract.address;
     console.log("⚡ Send contract address to challenge");

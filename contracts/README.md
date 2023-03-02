@@ -15,3 +15,6 @@
 - Debugging with Hardhat - https://hardhat.org/tutorial/debugging-with-hardhat-network
 - Fantom Testnet Blockchain Explorer - https://testnet.ftmscan.com/
 - Testnet Opera Faucet - https://faucet.fantom.network/
+- Request testnet LINK - https://faucets.chain.link/fantom-testnet
+- LINK Token Contracts - https://docs.chain.link/resources/link-token-contracts#fantom-testnet
+- Chainlink Job IDs - https://docs.chain.link/any-api/testnet-oracles/
