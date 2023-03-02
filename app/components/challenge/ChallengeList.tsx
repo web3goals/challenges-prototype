@@ -1,4 +1,5 @@
 import { SxProps, Typography, Link as MuiLink } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { Box, Stack } from "@mui/system";
 import { FullWidthSkeleton, XxlLoadingButton } from "components/styled";
 import ChallengeEntity from "entities/ChallengeEntity";
@@ -114,12 +115,17 @@ function ChallengeCard(props: { challenge: ChallengeEntity; sx?: SxProps }) {
       }}
     >
       {/* Link */}
-      <Typography fontWeight={700}>
-        🏆
-        <MuiLink href={`/challenges/${props.challenge.id}`}>
-          Challenge #{props.challenge.id}
-        </MuiLink>
-      </Typography>
+      <Stack direction="row" spacing={1}>
+        <Typography fontWeight={700}>
+          🏆
+          <MuiLink href={`/challenges/${props.challenge.id}`}>
+            Challenge #{props.challenge.id}
+          </MuiLink>
+        </Typography>
+        {props.challenge.isFinalized && (
+          <Typography color={grey[600]}>is finalized</Typography>
+        )}
+      </Stack>
       {/* Description */}
       <Typography fontWeight={700} mt={1}>
         {props.challenge.description}
