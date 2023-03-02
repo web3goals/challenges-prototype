@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 library DataTypes {
     struct ChallengeParams {
-        uint createdTimestamp;
+        uint256 createdTimestamp;
         address creator;
         uint256 duration;
         string hashtag;
@@ -12,10 +12,12 @@ library DataTypes {
         uint256 prize;
         uint256 deadline;
         bool isFinalized;
+        uint256 finalizedTimestamp;
+        uint256 winnersNumber;
     }
 
     struct ChallengeParticipant {
-        uint addedTimestamp;
+        uint256 addedTimestamp;
         address accountAddress;
         string handle;
         bool isChallengeCompleted;

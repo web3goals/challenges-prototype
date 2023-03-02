@@ -7,7 +7,7 @@ export const deployedContracts: {
 } = {
   ftmTestnet: {
     profile: "0xFe0AeD5cBEE89869FF505e10A5eBb75e9FC819D7",
-    challenge: "0xD9fEAbe16BAb684B5537eb6cbB43C8A4e6a90F47",
+    challenge: "0x280b48e6e8786FccC337CE5e7bfEeE8c186e0F66",
     verifier: "0xd6600E32c8FA0Ba6a50807aCFb65979b0fF87e7e",
   },
 };

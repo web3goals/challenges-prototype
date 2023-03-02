@@ -76,7 +76,9 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
                 description,
                 prize,
                 deadline,
-                false
+                false,
+                0,
+                0
             );
         _params[newTokenId] = tokenParams;
         emit ParamsSet(newTokenId, tokenParams);
@@ -91,20 +93,15 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
         if (_params[tokenId].deadline > block.timestamp)
             revert Errors.DeadlineNotPassed();
         if (_params[tokenId].creator != msg.sender) revert Errors.NotCreator();
-        // Update token
-        _params[tokenId].isFinalized = true;
-        // Emit events
-        emit ParamsSet(tokenId, _params[tokenId]);
-        emit Finalized(tokenId);
         // Define number of winners
-        uint winners = 0;
+        uint winnersNumber = 0;
         for (uint i = 0; i < _participants[tokenId].length; i++) {
             if (_participants[tokenId][i].isChallengeCompleted) {
-                winners++;
+                winnersNumber++;
             }
         }
         // If there are no winners, then send prize to creator
-        if (winners == 0) {
+        if (winnersNumber == 0) {
             (bool sent, ) = _params[tokenId].creator.call{
                 value: _params[tokenId].prize
             }("");
@@ -117,11 +114,20 @@ contract Challenge is ERC721Upgradeable, OwnableUpgradeable {
                     _participants[tokenId][i].isPrizeReceived = true;
                     (bool sent, ) = _participants[tokenId][i]
                         .accountAddress
-                        .call{value: _params[tokenId].prize / winners}("");
+                        .call{value: _params[tokenId].prize / winnersNumber}(
+                        ""
+                    );
                     if (!sent) revert Errors.SendingPrizeToWinnerFailed();
                 }
             }
         }
+        // Update token
+        _params[tokenId].isFinalized = true;
+        _params[tokenId].finalizedTimestamp = block.timestamp;
+        _params[tokenId].winnersNumber = winnersNumber;
+        // Emit events
+        emit ParamsSet(tokenId, _params[tokenId]);
+        emit Finalized(tokenId);
     }
 
     /// *********************************
