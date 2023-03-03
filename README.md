@@ -13,15 +13,9 @@ Web3 Challenges is an application that helps communities and DAOs increase the e
 
 ## 🪄 How it works
 
-1. Start a challenge.
-2. Share the link.
-3. People join the challenge.
-4. Each participant must verify his result to receive a prize.
-5. Finalize the challenge after deadline.
-
-## 💡 Features for future versions
-
-1. A participant must have a community token.
-2. Add more types of challenges.
-3. In the challenge #30DaysOfCode, participant must post tweets with the challenge hashtag.
-4. ...
+1. Community starts challenge by choosing a template with rules for participation and defining prize pool, deadline.
+2. After that, shares the link to the challenge with other members of the community.
+3. Members join the challenge. Also share it with their friends if the challenge rules motivate them to do so.
+4. Participants fulfill all conditions and mark the challenge as completed, which will be verified by smart contracts and oracles.
+5. After the deadline, the community finalizes the challenge, and each participant with a verified completion will receive a part of the prize pool.
+6. Eventually everyone is happy, and the community becomes more engaged.
