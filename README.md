@@ -22,4 +22,4 @@ Web3 Challenges is an application that helps communities and DAOs increase the e
 
 ## 🏗️ Architecture
 
-![Architecture](images/architecture.png)
+![Architecture](images/Architecture.png)
