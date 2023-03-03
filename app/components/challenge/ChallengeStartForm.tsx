@@ -57,7 +57,7 @@ export default function ChallengeStartForm(props: {
     hashtag: "#30DaysOfCode",
     handle: "BestDevsDAO",
     description:
-      "Participate in the #30DaysOfCode challenge and win prizes from BestDevsDAO",
+      "Code minimum an hour and tweet your progress for 30 days with the #30DaysOfCode hashtag and mention @BestDevsDAO to win prizes from BestDevsDAO",
     prize: 0.1,
     prizeCurrency: "native",
     deadline: "2023-06-01",
@@ -215,7 +215,7 @@ export default function ChallengeStartForm(props: {
                 helperText={touched.description && errors.description}
                 disabled={isFormDisabled}
                 multiline
-                maxRows={4}
+                maxRows={12}
                 sx={{ width: 1 }}
               />
             </WidgetBox>

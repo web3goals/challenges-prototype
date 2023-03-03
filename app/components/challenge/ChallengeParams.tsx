@@ -60,24 +60,6 @@ export default function ChallengeParams(props: {
         <WidgetText>{props.description}</WidgetText>
       </WidgetBox>
       <WidgetSeparatorText mb={2}>and</WidgetSeparatorText>
-      {/* Rule One */}
-      <WidgetBox bgcolor={palette.purpleDark} mb={2}>
-        <WidgetTitle>Rule #1</WidgetTitle>
-        <WidgetText>
-          Code minimum an hour every day for{" "}
-          <strong>{props.duration.toNumber()} days</strong>
-        </WidgetText>
-      </WidgetBox>
-      {/* Rule two */}
-      <WidgetBox bgcolor={palette.purpleDark} mb={2}>
-        <WidgetTitle>Rule #2</WidgetTitle>
-        <WidgetText>
-          Tweet your progress every day with the{" "}
-          <strong>{props.hashtag}</strong> hashtag and mention{" "}
-          <strong>{props.handle}</strong>
-        </WidgetText>
-      </WidgetBox>
-      <WidgetSeparatorText mb={2}>and</WidgetSeparatorText>
       {/* Prize */}
       <WidgetBox bgcolor={palette.green} mb={2}>
         <WidgetTitle>Prize Pool</WidgetTitle>
