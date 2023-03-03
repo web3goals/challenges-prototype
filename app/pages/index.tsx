@@ -3,11 +3,9 @@ import {
   TimelineConnector,
   TimelineContent,
   TimelineItem,
-  TimelineOppositeContent,
   TimelineSeparator,
 } from "@mui/lab";
 import { Container, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import Layout from "components/layout";
 import {
@@ -88,7 +86,7 @@ export default function Landing() {
             maxWidth: "md",
           }}
         >
-          {/* How it works */}
+          {/* How does it work */}
           <Typography
             variant="h4"
             fontWeight={700}
@@ -111,8 +109,9 @@ export default function Landing() {
                 <TimelineConnector sx={{ height: 12 }} />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "48px", px: 2 }}>
-                <Typography variant="h6" fontWeight={700}>
-                  Start a challenge
+                <Typography fontWeight={700}>
+                  Community starts challenge by choosing a template with rules
+                  for participation and defining prize pool, deadline
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -129,8 +128,9 @@ export default function Landing() {
                 <TimelineConnector sx={{ height: 12 }} />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "48px", px: 2 }}>
-                <Typography variant="h6" fontWeight={700}>
-                  Share the link
+                <Typography fontWeight={700}>
+                  After that, shares the link to the challenge with other
+                  members of the community
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -142,13 +142,14 @@ export default function Landing() {
                   sx={{ borderColor: "purpleDark" }}
                   variant="outlined"
                 >
-                  <Typography fontSize={32}>👥</Typography>
+                  <Typography fontSize={32}>💪</Typography>
                 </LandingTimelineDot>
                 <TimelineConnector sx={{ height: 12 }} />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "48px", px: 2 }}>
-                <Typography variant="h6" fontWeight={700}>
-                  People join the challenge
+                <Typography fontWeight={700}>
+                  Members join the challenge, also share it with their friends
+                  if the challenge rules motivate them to do so
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -165,11 +166,10 @@ export default function Landing() {
                 <TimelineConnector sx={{ height: 12 }} />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "48px", px: 2 }}>
-                <Typography variant="h6" fontWeight={700}>
-                  Each participant must verify his result
-                </Typography>
-                <Typography variant="h6" fontWeight={700} color={grey[600]}>
-                  to receive a prize
+                <Typography fontWeight={700}>
+                  Participants fulfill all conditions and mark the challenge as
+                  completed, which will be verified by smart contracts and
+                  oracles
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -186,12 +186,40 @@ export default function Landing() {
                 <TimelineConnector sx={{ height: 12 }} />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "48px", px: 2 }}>
-                <Typography variant="h6" fontWeight={700}>
-                  Finalize the challenge after deadline
+                <Typography fontWeight={700}>
+                  After the deadline, the community finalizes the challenge, and
+                  each participant with a verified completion will receive a
+                  part of the prize pool
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+            {/* Step six */}
+            <TimelineItem>
+              <TimelineSeparator>
+                <TimelineConnector sx={{ height: 12 }} />
+                <LandingTimelineDot
+                  sx={{ borderColor: "yellow" }}
+                  variant="outlined"
+                >
+                  <Typography fontSize={32}>🤩</Typography>
+                </LandingTimelineDot>
+                <TimelineConnector sx={{ height: 12 }} />
+              </TimelineSeparator>
+              <TimelineContent sx={{ py: "48px", px: 2 }}>
+                <Typography fontWeight={700}>
+                  Eventually everyone is happy, and the community becomes more
+                  engaged
                 </Typography>
               </TimelineContent>
             </TimelineItem>
           </Timeline>
+          <XxlLoadingButton
+            variant="outlined"
+            href="/challenges/start"
+            sx={{ mt: 2 }}
+          >
+            Boost Engagement
+          </XxlLoadingButton>
         </Container>
       </CentralizedBox>
     </Layout>

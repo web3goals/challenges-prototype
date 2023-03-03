@@ -11,7 +11,7 @@ Boost engagement in your web3 community with challenges!
 
 Web3 Challenges is an application that helps communities and DAOs increase the engagement of existing members and attract new ones through challenges that are controlled and verified by smart contracts.
 
-## 🪄 How it works
+## 🪄 How does it work?
 
 1. Community starts challenge by choosing a template with rules for participation and defining prize pool, deadline.
 2. After that, shares the link to the challenge with other members of the community.
